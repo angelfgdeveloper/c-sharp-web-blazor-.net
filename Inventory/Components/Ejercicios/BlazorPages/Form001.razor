@@ -5,11 +5,19 @@
 <p>@message</p>
 
 @code {
+	[Parameter]
+	public string Message { get; set; }
+
 	string message = "Un contenido";
 	string text;
 
+	protected override async Task OnInitializedAsync()
+	{
+		message = Message;
+	}
+
 	private void ChangeText()
 	{
-		message = text;
+		message = Message;
 	}
 }
