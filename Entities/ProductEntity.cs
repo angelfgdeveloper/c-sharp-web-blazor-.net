@@ -5,7 +5,7 @@ namespace Entities
 	public class ProductEntity
 	{
 		[Key] // Llave primaria (Data Annotations)
-		[StringLength(10)] // Max. 10 caracteres
+		[StringLength(50)] // Max. 50 caracteres
 		public string ProductId { get; set; }
 
 		[Required] // Campo obligatorio
