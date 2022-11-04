@@ -1,0 +1,53 @@
+﻿@using Business
+@using Entities
+
+<div>
+	@*Cargar modelo*@
+	<EditForm Model="oProduct">
+
+		@*Uso de Bootstrap*@
+		<div class="form-group mb-2">
+			<label>Referencia:</label>
+			<InputText class="form-control" @bind-Value="oProduct.ProductId" />
+		</div>
+
+		<div class="form-group mb-2">
+			<label>Nombre del producto:</label>
+			<InputText class="form-control" @bind-Value="oProduct.ProductName" />
+		</div>
+
+		<div class="form-group mb-2">
+			<label>Descripción:</label>
+			<InputTextArea class="form-control" @bind-Value="oProduct.ProductDescription" />
+		</div>
+
+		<div class="form-group">
+			<label>Categoría:</label>
+			<InputSelect class="form-control" @bind-Value="oProduct.CategoryId">
+				@foreach (var category in categories)
+			   {
+				   <option value="@category.CategoryId">@category.CategoryName</option>
+			   }
+			</InputSelect>
+		</div>
+
+		<input class="btn btn-success" type="button" value="Agregar producto" @onclick="SaveProduct" />
+
+	</EditForm>
+</div>
+
+@code {
+	List<CategoryEntity> categories = new List<CategoryEntity>();
+	ProductEntity oProduct = new ProductEntity();
+
+	// Inicializado datos
+	protected override async Task OnInitializedAsync()
+	{
+		categories = B_Category.CategoryList();
+	}
+
+	public void SaveProduct()
+	{
+		B_Product.CreateProduct(oProduct);
+	}
+}
